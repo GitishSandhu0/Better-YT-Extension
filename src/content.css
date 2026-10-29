@@ -1,0 +1,536 @@
+/* Better YouTube — page-level filters. Scoped so toggles are instant. */
+
+/* ------------------------------------------------------------------------- *
+ * Ads: feed, search, menu, masthead, merch and player overlays
+ * ------------------------------------------------------------------------- */
+
+html.by-adblock ytd-ad-slot-renderer,
+html.by-adblock ytd-in-feed-ad-layout-renderer,
+html.by-adblock ytd-banner-promo-renderer,
+html.by-adblock ytd-statement-banner-renderer,
+html.by-adblock ytd-display-ad-renderer,
+html.by-adblock ytd-promoted-sparkles-web-renderer,
+html.by-adblock ytd-promoted-video-renderer,
+html.by-adblock ytd-compact-promoted-video-renderer,
+html.by-adblock ytd-search-pyw-renderer,
+html.by-adblock ytd-video-masthead-ad-v3-renderer,
+html.by-adblock ytd-video-masthead-ad-advertiser-info-renderer,
+html.by-adblock ytd-video-masthead-ad-primary-video-renderer,
+html.by-adblock ytd-primetime-promo-renderer,
+html.by-adblock ytd-background-promo-renderer,
+html.by-adblock ytd-guide-promo-renderer,
+html.by-adblock ytd-guide-signin-promo-renderer,
+html.by-adblock ytd-mealbar-promo-renderer,
+html.by-adblock ytd-dismissible-promo-renderer,
+html.by-adblock ytd-merch-shelf-renderer,
+html.by-adblock ytd-brand-video-shelf-renderer,
+html.by-adblock ytd-brand-video-singleton-renderer,
+html.by-adblock ytd-action-companion-ad-renderer,
+html.by-adblock ytd-companion-slot-renderer,
+html.by-adblock ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-ads"],
+html.by-adblock #masthead-ad,
+html.by-adblock #player-ads,
+html.by-adblock #panels-full-bleed-container ytd-ad-slot-renderer,
+html.by-adblock ytm-promoted-sparkles-web-renderer,
+html.by-adblock ytm-companion-slot-renderer,
+html.by-adblock .ytp-ad-module,
+html.by-adblock .ytp-ad-overlay-container,
+html.by-adblock .ytp-ad-overlay-slot,
+html.by-adblock .ytp-ad-image-overlay,
+html.by-adblock .ytp-ad-text-overlay,
+html.by-adblock .ytp-ad-player-overlay,
+html.by-adblock .ytp-ad-player-overlay-layout,
+html.by-adblock .ytp-ad-player-overlay-flyout-cta,
+html.by-adblock .ytp-ad-survey,
+html.by-adblock .ytp-ad-survey-answers,
+html.by-adblock .ytp-ad-progress-list,
+html.by-adblock .ytp-ad-persistent-progress-bar-container,
+html.by-adblock .ytp-ad-action-interstitial,
+html.by-adblock .ytp-ad-action-interstitial-background-container,
+html.by-adblock .ytp-ad-action-interstitial-slot,
+html.by-adblock .ytp-ad-badge,
+html.by-adblock .ytp-featured-product {
+  display: none !important;
+}
+
+/* Wrappers that would otherwise leave empty tiles behind. */
+html.by-adblock ytd-rich-item-renderer:has(ytd-ad-slot-renderer),
+html.by-adblock ytd-rich-item-renderer:has(ytd-in-feed-ad-layout-renderer),
+html.by-adblock ytd-rich-item-renderer:has(ytd-display-ad-renderer),
+html.by-adblock ytd-rich-item-renderer:has(ytd-promoted-sparkles-web-renderer),
+html.by-adblock ytd-rich-item-renderer:has(ytd-promoted-video-renderer),
+html.by-adblock ytd-rich-item-renderer:has(ytd-compact-promoted-video-renderer),
+html.by-adblock ytd-rich-item-renderer:has(ytd-brand-video-shelf-renderer),
+html.by-adblock ytd-rich-item-renderer:has(ytd-brand-video-singleton-renderer),
+html.by-adblock ytd-rich-section-renderer:has(ytd-statement-banner-renderer),
+html.by-adblock ytd-rich-section-renderer:has(ytd-banner-promo-renderer),
+html.by-adblock ytd-rich-section-renderer:has(ytd-mealbar-promo-renderer),
+html.by-adblock ytd-rich-section-renderer:has(ytd-dismissible-promo-renderer),
+html.by-adblock ytd-item-section-renderer:has(> #contents > ytd-ad-slot-renderer),
+html.by-adblock ytd-item-section-renderer:has(> #contents > ytd-in-feed-ad-layout-renderer),
+html.by-adblock ytd-item-section-renderer:has(> #contents > ytd-promoted-sparkles-web-renderer),
+html.by-adblock ytd-item-section-renderer:has(> #contents > ytd-promoted-video-renderer),
+html.by-adblock ytd-item-section-renderer:has(> #contents > ytd-compact-promoted-video-renderer) {
+  display: none !important;
+}
+
+/* YouTube's anti-adblock dialog. The content script also removes it and
+ * resumes playback so the page cannot stay in a paused/blocked state. */
+html.by-adblock ytd-enforcement-message-view-model,
+html.by-adblock tp-yt-paper-dialog:has(ytd-enforcement-message-view-model),
+html.by-adblock yt-confirm-dialog-renderer:has(ytd-enforcement-message-view-model) {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------------- *
+ * Shorts: shelves, search results, channel/home tiles and the guide button
+ * ------------------------------------------------------------------------- */
+
+html.by-shorts ytd-reel-shelf-renderer,
+html.by-shorts ytd-reel-item-renderer,
+html.by-shorts ytd-rich-shelf-renderer[is-shorts],
+html.by-shorts ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts]),
+html.by-shorts ytd-rich-section-renderer:has(ytd-reel-shelf-renderer),
+html.by-shorts ytd-rich-item-renderer:has(a[href^="/shorts/"]),
+html.by-shorts ytd-video-renderer:has(a[href^="/shorts/"]),
+html.by-shorts ytd-compact-video-renderer:has(a[href^="/shorts/"]),
+html.by-shorts ytd-grid-video-renderer:has(a[href^="/shorts/"]),
+html.by-shorts ytd-playlist-video-renderer:has(a[href^="/shorts/"]),
+html.by-shorts ytd-guide-entry-renderer:has(a[href^="/shorts"]),
+html.by-shorts ytd-mini-guide-entry-renderer:has(a[href^="/shorts"]),
+html.by-shorts ytm-reel-shelf-renderer,
+html.by-shorts ytm-shorts-lockup-view-model,
+html.by-shorts ytm-shorts-lockup-view-model-v2,
+html.by-shorts ytm-shorts-shelf-renderer {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------------- *
+ * Focus mode: a single switch for a quieter watch, home and search experience
+ * ------------------------------------------------------------------------- */
+
+/* Used by the content script for sections whose title has no stable selector. */
+html.by-focus [data-by-focus-hidden] {
+  display: none !important;
+}
+
+/*
+ * Focus mode uses square corners throughout the YouTube UI. The universal
+ * selector also covers YouTube's newer custom button and touch-feedback
+ * elements, which carry their own rounded shapes.
+ */
+html.by-focus *,
+html.by-focus *::before,
+html.by-focus *::after {
+  border-radius: 0 !important;
+}
+
+/* Watch page: comments, related sidebar, live chat and playlist panel. */
+html.by-focus ytd-watch-flexy #secondary,
+html.by-focus ytd-watch-flexy ytd-watch-next-secondary-results-renderer,
+html.by-focus ytd-watch-flexy #related,
+html.by-focus ytd-watch-flexy #comments,
+html.by-focus ytd-watch-flexy ytd-comments,
+html.by-focus ytd-watch-flexy ytd-comments-header-renderer,
+html.by-focus
+  ytd-watch-flexy
+  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-comments-section"],
+html.by-focus ytd-watch-flexy ytd-live-chat-frame,
+html.by-focus ytd-watch-flexy #chat,
+html.by-focus ytd-watch-flexy #chat-container,
+html.by-focus ytd-watch-flexy ytd-playlist-panel-renderer,
+html.by-focus ytd-watch-flexy #playlist,
+html.by-focus ytd-watch-flexy #playlist-action-menu {
+  display: none !important;
+}
+
+/* Let the player and metadata use the width freed up by the hidden sidebar. */
+html.by-focus ytd-watch-flexy #primary,
+html.by-focus ytd-watch-flexy #primary-inner {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+html.by-focus ytd-watch-flexy #primary {
+  margin: 0 !important;
+  padding: 0 8px !important;
+}
+
+html.by-focus ytd-watch-flexy #primary-inner {
+  padding: 0 !important;
+}
+
+/*
+ * Keep the expanded player inside the viewport. YouTube exposes the current
+ * video's aspect ratio through these variables, so square and vertical videos
+ * stay compact instead of growing to the full page width.
+ */
+html.by-focus
+  ytd-watch-flexy:not([theater]):not([fullscreen]):not([full-bleed-player])
+  #player-container-outer {
+  max-width: min(100%, var(--ytd-watch-flexy-max-player-width)) !important;
+}
+
+html.by-focus
+  ytd-watch-flexy:not([theater]):not([fullscreen]):not([full-bleed-player])
+  #player-container {
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: var(--ytd-watch-flexy-max-player-width) !important;
+  margin: 0 auto !important;
+}
+
+/* Player info cards: the top-right teaser and the card button. */
+html.by-focus .ytp-cards-button,
+html.by-focus .ytp-cards-teaser,
+html.by-focus .ytp-cards-teaser-container {
+  display: none !important;
+}
+
+/* Compact the watch metadata and its controls around the player. */
+html.by-focus ytd-watch-metadata {
+  margin: 8px 0 12px !important;
+}
+
+html.by-focus ytd-watch-metadata #top-row {
+  margin-top: 0 !important;
+}
+
+html.by-focus ytd-watch-metadata #owner {
+  margin: 8px 16px 0 0 !important;
+}
+
+html.by-focus ytd-watch-metadata #actions {
+  margin-top: 8px !important;
+}
+
+html.by-focus ytd-watch-metadata #description {
+  margin-top: 8px !important;
+}
+
+html.by-focus ytd-watch-metadata #bottom-row {
+  margin-right: 0 !important;
+}
+
+html.by-focus ytd-watch-metadata button {
+  height: 36px !important;
+  min-height: 36px !important;
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+}
+
+/* Home: keep the masthead/search, hide the guide, chips and recommendation feed. */
+html.by-focus.by-focus-home #guide,
+html.by-focus.by-focus-home ytd-mini-guide-renderer,
+html.by-focus.by-focus-home #frosted-glass,
+html.by-focus.by-focus-home ytd-masthead #guide-button,
+html.by-focus.by-focus-home
+  ytd-browse[page-subtype="home"]
+  yt-page-header-portal,
+html.by-focus.by-focus-home ytd-browse[page-subtype="home"] #personal-greeting,
+html.by-focus.by-focus-home ytd-browse[page-subtype="home"] #header,
+html.by-focus.by-focus-home ytd-browse[page-subtype="home"] #chips-wrapper,
+html.by-focus.by-focus-home
+  ytd-browse[page-subtype="home"]
+  ytd-feed-filter-chip-bar-renderer,
+html.by-focus.by-focus-home ytd-browse[page-subtype="home"] #survey,
+html.by-focus.by-focus-home ytd-browse[page-subtype="home"] #footer {
+  display: none !important;
+}
+
+/*
+ * Keep the feed rendered but out of sight. Using display: none here would stop
+ * YouTube from fetching Home data, so revealing the feed would leave an empty
+ * page until a reload. A clipped, invisible primary column keeps the lazy
+ * renderer alive while still showing only the search bar.
+ */
+html.by-focus.by-focus-home:not(.by-focus-reveal-home)
+  ytd-browse[page-subtype="home"]
+  ytd-two-column-browse-results-renderer
+  #primary {
+  height: calc(100vh - 56px) !important;
+  max-height: calc(100vh - 56px) !important;
+  overflow: hidden !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+html.by-focus.by-focus-home #page-manager {
+  margin-left: 0 !important;
+}
+
+html.by-focus.by-focus-home:not(.by-focus-reveal-home),
+html.by-focus.by-focus-home:not(.by-focus-reveal-home) body {
+  overflow: hidden !important;
+}
+
+/* Compact the masthead search field in Focus mode. */
+html.by-focus ytd-masthead .ytSearchboxComponentInputBox,
+html.by-focus ytd-masthead .ytSearchboxComponentSearchButton {
+  height: 36px !important;
+}
+
+html.by-focus ytd-masthead .ytSearchboxComponentInputBox {
+  box-sizing: border-box !important;
+  padding-left: 12px !important;
+}
+
+/* Hide the extra magnifier YouTube places inside the focused search field. */
+html.by-focus ytd-masthead .ytSearchboxComponentInnerSearchIcon {
+  display: none !important;
+}
+
+/* Search: keep direct results, remove recommendation shelves and Shorts. */
+html.by-focus ytd-search grid-shelf-view-model,
+html.by-focus ytd-search ytd-reel-shelf-renderer,
+html.by-focus ytd-search ytd-rich-shelf-renderer,
+html.by-focus ytd-search ytd-shelf-renderer,
+html.by-focus ytd-search ytd-horizontal-card-list-renderer,
+html.by-focus ytd-search ytd-vertical-list-renderer,
+html.by-focus ytd-search ytd-search-refinement-card-renderer,
+html.by-focus ytd-search ytd-search-pyv-renderer,
+html.by-focus ytd-search ytd-promoted-sparkles-web-renderer,
+html.by-focus ytd-search ytd-in-feed-ad-layout-renderer,
+html.by-focus ytd-search ytd-ad-slot-renderer,
+html.by-focus ytd-search ytd-display-ad-renderer {
+  display: none !important;
+}
+
+/* Compact the search results. */
+html.by-focus ytd-search {
+  padding: 0 8px 8px !important;
+}
+
+html.by-focus ytd-search ytd-video-renderer {
+  margin-top: 8px !important;
+}
+
+/* Premium/sign-in upsells, surveys, merch, tickets and offer shelves. */
+html.by-focus ytd-mealbar-promo-renderer,
+html.by-focus ytd-banner-promo-renderer,
+html.by-focus ytd-statement-banner-renderer,
+html.by-focus ytd-dismissible-promo-renderer,
+html.by-focus ytd-guide-promo-renderer,
+html.by-focus ytd-guide-signin-promo-renderer,
+html.by-focus ytd-background-promo-renderer,
+html.by-focus ytd-primetime-promo-renderer,
+html.by-focus ytd-inline-survey-renderer,
+html.by-focus ytd-survey-renderer,
+html.by-focus #survey,
+html.by-focus ytd-merch-shelf-renderer,
+html.by-focus #merch-shelf,
+html.by-focus ytd-ticket-shelf-renderer,
+html.by-focus ytd-offer-shelf-renderer,
+html.by-focus ytd-brand-video-shelf-renderer,
+html.by-focus ytd-brand-video-singleton-renderer,
+html.by-focus ytd-product-list-renderer,
+html.by-focus .ytp-featured-product {
+  display: none !important;
+}
+
+html.by-focus ytd-rich-item-renderer:has(ytd-merch-shelf-renderer),
+html.by-focus ytd-rich-item-renderer:has(ytd-banner-promo-renderer),
+html.by-focus ytd-rich-item-renderer:has(ytd-statement-banner-renderer),
+html.by-focus ytd-rich-section-renderer:has(ytd-merch-shelf-renderer),
+html.by-focus ytd-rich-section-renderer:has(ytd-banner-promo-renderer),
+html.by-focus ytd-rich-section-renderer:has(ytd-statement-banner-renderer),
+html.by-focus ytd-rich-section-renderer:has(ytd-mealbar-promo-renderer),
+html.by-focus ytd-rich-section-renderer:has(ytd-dismissible-promo-renderer) {
+  display: none !important;
+}
+
+/* End screens, autoplay suggestions and pause-overlay recommendations. */
+html.by-focus .html5-endscreen,
+html.by-focus .ytp-endscreen-content,
+html.by-focus .ytp-ce-element,
+html.by-focus .ytp-ce-shadow,
+html.by-focus .ytp-autonav-endscreen,
+html.by-focus .ytp-autonav-endscreen-countdown-overlay,
+html.by-focus .ytp-suggested-video,
+html.by-focus .ytp-videowall-still,
+html.by-focus .ytp-pause-overlay {
+  display: none !important;
+}
+
+/* Four videos per row when Home recommendations are revealed. */
+html.by-focus ytd-browse[page-subtype="home"] ytd-rich-grid-renderer {
+  --ytd-rich-grid-items-per-row: 4 !important;
+  --ytd-rich-grid-gutter-margin: 8px;
+  --ytd-rich-grid-row-margin: 24px;
+}
+
+/* Compact the revealed Home feed. */
+html.by-focus
+  ytd-browse[page-subtype="home"]
+  ytd-rich-grid-renderer
+  #contents {
+  margin: 0 8px !important;
+  padding-top: 12px !important;
+}
+
+html.by-focus
+  ytd-browse[page-subtype="home"]
+  ytd-rich-grid-renderer
+  ytd-rich-item-renderer {
+  margin-bottom: 24px !important;
+}
+
+/* The Home reveal control. It lives outside the feed so it survives re-renders. */
+#by-focus-home-btn.by-focus-home-btn {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 11px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 0;
+  background: #ff0033;
+  color: #fff;
+  font-family: "Roboto", "Segoe UI", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transform: translateX(-50%);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35),
+    0 2px 8px rgba(255, 0, 51, 0.25);
+  appearance: none;
+  -webkit-appearance: none;
+  transition: background 140ms ease, box-shadow 140ms ease,
+    transform 140ms ease;
+}
+
+html.by-focus.by-focus-home #by-focus-home-btn.by-focus-home-btn {
+  display: inline-flex;
+}
+
+#by-focus-home-btn.by-focus-home-btn:hover {
+  background: #ff1a4a;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.4),
+    0 2px 10px rgba(255, 0, 51, 0.32);
+}
+
+#by-focus-home-btn.by-focus-home-btn:active {
+  transform: translateX(-50%) scale(0.98);
+}
+
+#by-focus-home-btn.by-focus-home-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* ------------------------------------------------------------------------- *
+ * HDR badge
+ * ------------------------------------------------------------------------- */
+
+#by-hdr-badge.by-hdr-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  margin: 0 6px;
+  padding: 0 9px;
+  border: 1px solid rgba(124, 255, 178, 0.55);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.62);
+  color: #7cffb2;
+  font-family: "Roboto", "Segoe UI", Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  backdrop-filter: blur(4px);
+}
+
+#movie_player > #by-hdr-badge.by-hdr-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 60;
+}
+
+/* ------------------------------------------------------------------------- *
+ * AMOLED dark background
+ *
+ * YouTube's dark theme exposes its surfaces as CSS variables. Overriding the
+ * background variables keeps text, icons, and controls readable while turning
+ * the page itself pure black. The fallback selectors cover older renderers
+ * that still use hard-coded dark greys.
+ * ------------------------------------------------------------------------- */
+
+html.by-amoled[dark] {
+  --yt-spec-base-background: #000;
+  --yt-spec-raised-background: #0a0a0a;
+  --yt-spec-menu-background: #0a0a0a;
+  --yt-spec-general-background-a: #000;
+  --yt-spec-general-background-b: #000;
+  --yt-spec-general-background-c: #000;
+  --yt-spec-brand-background-solid: #000;
+  --yt-spec-brand-background-primary: #000;
+  --yt-spec-brand-background-secondary: #000;
+  --yt-spec-static-brand-black: #000;
+  --yt-spec-static-overlay-background-solid: #000;
+  --yt-spec-static-overlay-background-heavy: rgba(0, 0, 0, 0.94);
+  --yt-spec-badge-chip-background: #1a1a1a;
+  --yt-spec-button-chip-background-hover: #1a1a1a;
+  --yt-spec-touch-response: #1a1a1a;
+  --yt-spec-touch-response-inverse: #1a1a1a;
+  --yt-spec-10-percent-layer: rgba(255, 255, 255, 0.08);
+  --yt-spec-20-percent-layer: rgba(255, 255, 255, 0.12);
+  --yt-sys-color-baseline--base-background: #000;
+  --yt-sys-color-baseline--raised-background: #0a0a0a;
+  --yt-sys-color-baseline--menu-background: #0a0a0a;
+  --yt-sys-color-baseline--surface-container: #0a0a0a;
+  --app-drawer-content-container-background-color: #000;
+  background-color: #000 !important;
+}
+
+html.by-amoled[dark] body,
+html.by-amoled[dark] ytd-app,
+html.by-amoled[dark] #page-manager,
+html.by-amoled[dark] #columns,
+html.by-amoled[dark] ytd-masthead,
+html.by-amoled[dark] ytd-masthead #background,
+html.by-amoled[dark] #guide,
+html.by-amoled[dark] #guide-content,
+html.by-amoled[dark] #contentContainer,
+html.by-amoled[dark] ytd-mini-guide-renderer,
+html.by-amoled[dark] ytd-watch-flexy,
+html.by-amoled[dark] ytd-watch-flexy #primary,
+html.by-amoled[dark] ytd-watch-flexy #secondary,
+html.by-amoled[dark] ytd-comments,
+html.by-amoled[dark] ytd-watch-metadata,
+html.by-amoled[dark] ytd-video-secondary-info-renderer,
+html.by-amoled[dark] ytd-watch-next-secondary-results-renderer,
+html.by-amoled[dark] ytd-browse,
+html.by-amoled[dark] ytd-two-column-browse-results-renderer,
+html.by-amoled[dark] ytd-section-list-renderer,
+html.by-amoled[dark] ytd-item-section-renderer,
+html.by-amoled[dark] ytd-rich-grid-renderer,
+html.by-amoled[dark] ytd-rich-section-renderer,
+html.by-amoled[dark] ytd-shelf-renderer,
+html.by-amoled[dark] ytd-playlist-panel-renderer,
+html.by-amoled[dark] ytd-playlist-header-renderer,
+html.by-amoled[dark] ytd-searchbox #container,
+html.by-amoled[dark] ytd-searchbox #search,
+html.by-amoled[dark] ytd-menu-renderer {
+  background-color: #000 !important;
+}
+
+html.by-amoled[dark] ytd-popup-container,
+html.by-amoled[dark] ytd-multi-page-menu-renderer,
+html.by-amoled[dark] ytd-menu-popup-renderer,
+html.by-amoled[dark] tp-yt-paper-dialog,
+html.by-amoled[dark] tp-yt-paper-listbox {
+  background-color: #0a0a0a !important;
+}

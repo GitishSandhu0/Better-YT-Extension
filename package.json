@@ -1,0 +1,11 @@
+{
+  "name": "better-yt",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Chrome/Helium extension that blocks YouTube ads, filters Shorts, enforces HDR playback, adds an AMOLED dark mode, and provides a Focus mode.",
+  "scripts": {
+    "test": "node --test test/sanitize.test.js",
+    "check": "node tools/check.mjs",
+    "icons": "powershell -ExecutionPolicy Bypass -File tools/make-icons.ps1"
+  }
+}
